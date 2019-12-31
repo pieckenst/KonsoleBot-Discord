@@ -5,7 +5,7 @@ import time
 import os
 from discord.ext import commands
 import random 
-TOKEN = 'NjQxOTcxMTM0ODYyMDY1NjY0.XdQOpw.5YNHGcAZJ0avcfs4eZyT5Ipo6u0'
+TOKEN = ''
 bot = commands.Bot(command_prefix='$')
 @bot.event
 async def on_ready():
@@ -248,7 +248,7 @@ if __name__ == '__main__':
             raise e
 
 
-bot.run('NjQxOTcxMTM0ODYyMDY1NjY0.XdQOpw.5YNHGcAZJ0avcfs4eZyT5Ipo6u0')
+bot.run('')
 
 
 
