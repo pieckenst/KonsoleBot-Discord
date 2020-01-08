@@ -2,13 +2,16 @@ import discord
 import asyncio
 import os
 from discord.ext import commands
-bot = commands.Bot(command_prefix='$') # Префикс бота
+bot = commands.Bot(command_prefix="$") # Префикс бота
+
+
 @bot.event
 async def on_ready():
-    print("Бот запущен") # Вывод информации о запуске
+    print("[SUCCESS] Бот запущен") # Вывод информации о запуске
     await bot.change_presence(status=discord.Status.online, activity=discord.Game("KDE"))
 
 bot.remove_command("help")
+
 
 @bot.command()
 async def shutdown(ctx): # Команда для выключения бота
@@ -37,8 +40,9 @@ async def help(ctx): # help
     embed1.add_field(name="minigames", value="Информация о мини-играх.", inline=True)
     embed1.add_field(name="wallpapers", value="Информация о командах для получения обоев рабочего стола.", inline=True)
     embed1.add_field(name="infosystem", value="Информация о командах для получения данных о сервере, пользователе и т.п.", inline=True)
-    embed1.add_field(name="wiki", value="Информация о вики командах.", inline=True)  
+    embed1.add_field(name="wiki", value="Информация о вики командах.", inline=True)
     embed1.add_field(name="config", value="Информация о командах для конфигурации и настройки.", inline=True)
+    embed1.add_field(name="tools", value="Информация о командах-инструментах.", inline=True)
     embed1.add_field(name="system", value="Информация о командах для голосования, обращения к администрации и т.п.", inline=True)
     embed1.set_footer(text="Создан для сервера Computer Team. NigamanRPG. Python+Discord.py")
     await ctx.send(embed=embed1)
@@ -64,7 +68,7 @@ async def minigames(ctx):
     await ctx.send(embed=mgemb)
 
 @help.command(pass_context=True)
-async def wallpapers(ctx):    
+async def wallpapers(ctx):
     wallemb = discord.Embed(title="KonsoleBot. Модуль Обои для рабочего стола.", description="Команды для получения обоев рабочего стола", color=0xff9219)
     wallemb.add_field(name="wallpaper [category]", value="Получить изображение для рабочего стола", inline=False)
     wallemb.add_field(name="Категории", value="``anime`` - обои с аниме \n ``nature`` - обои с природой", inline=False)
@@ -89,7 +93,7 @@ async def infosystem(ctx):
     infemb.add_field(name="voicedemo [VoiceChannel]", value="Получение ссылки для демонстрации экрана в голосовом чате", inline=False)
     infemb.add_field(name="avatar [user]", value="Аватар пользователя", inline=False)
     infemb.set_footer(text="Создан для сервера Computer Team. NigamanRPG. Python+Discord.py")
-    await ctx.send(embed=infemb) 
+    await ctx.send(embed=infemb)
 
 @help.command(pass_context=True)
 async def config(ctx):
@@ -99,7 +103,18 @@ async def config(ctx):
     confemb.add_field(name="sub channel [TextChannel] | clear", value="Выбор канала для отправки предложений | Очистка конфигурационного файла", inline=False)
     confemb.add_field(name="ticket channel [TextChannel] | clear", value="Выбор канала для отправки тикетов | Очистка конфигурационного файла", inline=False)
     confemb.set_footer(text="Создан для сервера Computer Team. NigamanRPG. Python+Discord.py")
-    await ctx.send(embed=confemb) 
+    await ctx.send(embed=confemb)
+
+@help.command(pass_context=True)
+async def tools(ctx):
+    temb=discord.Embed(title="KonsoleBot. Модуль Инструменты.", description="Команды-инструменты", color=0x7ba05b)
+    temb.add_field(name="randint [Num1] [Num2]", value="Вывод рандомного числа из диапазона", inline=False)
+    temb.add_field(name="sqrt [Num]", value="Вывод квадратного корня указанного числа", inline=False)
+    temb.add_field(name="factorial [Num]", value="Вывод факториала указанного числа", inline=False)
+    temb.add_field(name="embed [Title] [Content]", value="Создание embedа с вашим текстом", inline=False)
+    temb.add_field(name="remind me | role [Time] [Message]", value="Создание напоминания для себя | для роли", inline=False)
+    temb.set_footer(text="Создан для сервера Computer Team. NigamanRPG. Python+Discord.py")
+    await ctx.send(embed=temb)
 
 @help.command(pass_context=True)
 async def system(ctx):
@@ -119,22 +134,19 @@ initial_extensions = ["cogs.mod", # Модуль модерации
                       "cogs.welcome", # Модуль приветственных сообщений
                       "cogs.tickets", # Модуль тикетов
                       "cogs.submits", # Модуль голосований/предложений
-                      "cogs.wallpapers"] # Модуль обоев для рабочего стола
+                      "cogs.wallpapers", # Модуль обоев для рабочего стола
+                      "cogs.tools"] # Модуль инструментов
+
 
 if __name__ == '__main__':
     for extension in initial_extensions:
         try:
             bot.load_extension(extension)
-            print(f"Модуль {extension} успешно загрузился")
+            print(f"[OK] Модуль {extension} успешно загрузился")
             print("----------------------------------")
         except Exception as e:
             print(f"Модуль {extension} не может загрузиться")
             raise e
 
 
-bot.run() # Токен бота для запуска
-
-
-
-
-
+bot.run("NjQxOTcxMTM0ODYyMDY1NjY0.XhRxuA.V1xIlnXLP_t644A1jyDzhY6_AKk") # Токен бота для запуска

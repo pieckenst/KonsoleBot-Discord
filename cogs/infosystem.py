@@ -1,5 +1,6 @@
 import discord
 import asyncio
+import os
 from discord.ext import commands
 
 class infosystem(commands.Cog):
@@ -7,7 +8,9 @@ class infosystem(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def neofetch(self, ctx, member : discord.Member):
+    async def neofetch(self, ctx, member: discord.Member=None):
+        if member is None:
+            member = ctx.message.author
         username = member.nick
         join = member.joined_at
         stat = member.status
@@ -27,7 +30,9 @@ class infosystem(commands.Cog):
         await ctx.send(embed=neoembed)
 
     @commands.command()
-    async def avatar(self, ctx, member : discord.Member):
+    async def avatar(self, ctx, member : discord.Member=None):
+        if member is None:
+            member = ctx.message.author
         avaembed = discord.Embed(title=f"Аватар пользователя {member}",color=0x00ff00)
         avaembed.set_image(url=member.avatar_url)
         avaembed.set_footer(text=f"ID пользователя: {member.id}")
@@ -49,7 +54,7 @@ class infosystem(commands.Cog):
     @commands.command(pass_context=True)
     async def voicedemo(self,ctx, voice: discord.VoiceChannel):
         member = ctx.message.author
-        await ctx.send(f"**Ссылка не демонстрацию экрана в канале** *{voice}*: https://discordapp.com/channels/{member.guild.id}/{voice.id}")
+        await ctx.send(f"**Ссылка не демонстрацию экрана в канале {voice.mention}**: https://discordapp.com/channels/{member.guild.id}/{voice.id}")
         
 
 
