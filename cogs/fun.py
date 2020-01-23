@@ -16,6 +16,12 @@ class fun(commands.Cog):
     async def ping(self, ctx):
         for pings in range(4):
             await ctx.send("bot: Обмен пакетами с computerteam.discord. Удачно")
+            
+    
+    @commands.command()
+    async def rofl(self, ctx):
+       
+       await ctx.send("https://cdn.discordapp.com/attachments/436101759425970176/620351786401792000/1566800609.jpg")    
 
 
 
